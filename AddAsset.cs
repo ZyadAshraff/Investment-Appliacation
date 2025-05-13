@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,35 +10,42 @@ using System.Windows.Forms;
 
 namespace InvestApp
 {
+    /// <summary>
+    /// Form for adding a new asset to the portfolio
+    /// </summary>
     public partial class AddAsset : Form
     {
-        // Property to hold the asset created by the form
+        /// <summary>
+        /// Gets the asset that was created (null if cancelled)
+        /// </summary>
         public Asset CreatedAsset { get; private set; }
 
-        // Constructor to initialize the form
+        /// <summary>
+        /// Initializes a new AddAsset form
+        /// </summary>
         public AddAsset()
         {
             InitializeComponent();
         }
 
-        // Method to validate user inputs in the form fields
+        /// <summary>
+        /// Validates the form inputs
+        /// </summary>
+        /// <returns>True if inputs are valid, false otherwise</returns>
         private bool ValidateInputs()
         {
-            // Check if asset name is not empty or whitespace
             if (string.IsNullOrWhiteSpace(tb_AssetName.Text))
             {
                 MessageBox.Show("Please enter an asset name.");
                 return false;
             }
 
-            // Check if value is a valid positive decimal number
             if (!decimal.TryParse(tb_value.Text, out decimal value) || value <= 0)
             {
                 MessageBox.Show("Please enter a valid positive number for value.");
                 return false;
             }
 
-            // Duplicate check for asset name (can be removed or replaced)
             if (string.IsNullOrWhiteSpace(tb_AssetName.Text))
             {
                 MessageBox.Show("Please enter an asset name.");
@@ -48,53 +55,54 @@ namespace InvestApp
             return true;
         }
 
-        // Event handler for the Save button click
+        /// <summary>
+        /// Handles the save button click
+        /// </summary>
         private void bt_save_Click(object sender, EventArgs e)
         {
-            // Validate inputs before proceeding
             if (!ValidateInputs()) return;
 
             try
             {
-                // Create a new Asset object with user inputs
                 CreatedAsset = new Asset(
                     tb_AssetName.Text,
                     decimal.Parse(tb_value.Text),
                     new AssetType(
-                        "Name", // Placeholder name for the asset type
-                        true    // Example boolean flag
+                        "Name",
+                        true
                     )
                 );
 
-                // Set dialog result to OK and close the form
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
             {
-                // Show any exception message that occurs during asset creation
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
 
-        // Event handler for the Cancel button click
+        /// <summary>
+        /// Handles the cancel button click
+        /// </summary>
         private void bt_cancel_Click(object sender, EventArgs e)
         {
-            // Set dialog result to Cancel and close the form
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
-        // Event handler for form load (currently not used)
+        /// <summary>
+        /// Handles the form load event
+        /// </summary>
         private void AddAsset_Load_1(object sender, EventArgs e)
         {
-
         }
 
-        // Event handler for text change in a TextBox (currently not used)
+        /// <summary>
+        /// Handles text changes in the asset name textbox
+        /// </summary>
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

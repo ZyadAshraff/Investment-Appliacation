@@ -5,10 +5,17 @@ using System.Reflection.Emit;
 
 namespace InvestApp
 {
+    /// <summary>
+    /// The main application form showing the user's investment portfolio
+    /// </summary>
     public partial class MainForm : Form
     {
         private readonly User _currentUser;
         private Asset _selectedAsset;
+
+        /// <summary>
+        /// Handles selection changes in the assets DataGridView
+        /// </summary>
         private void DgvAssets_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvAssets.SelectedRows.Count > 0)
@@ -26,6 +33,10 @@ namespace InvestApp
             }
         }
 
+        /// <summary>
+        /// Creates a new MainForm for the specified user
+        /// </summary>
+        /// <param name="currentUser">The logged in user</param>
         public MainForm(User currentUser)
         {
             _currentUser = currentUser;
@@ -35,7 +46,9 @@ namespace InvestApp
             LoadPortfolioData();
         }
 
-
+        /// <summary>
+        /// Loads the user's portfolio data from file
+        /// </summary>
         private void LoadPortfolioData()
         {
             try
@@ -50,6 +63,9 @@ namespace InvestApp
             }
         }
 
+        /// <summary>
+        /// Refreshes the portfolio display with current data
+        /// </summary>
         private void RefreshPortfolio()
         {
             dgvAssets.DataSource = null;
@@ -61,6 +77,9 @@ namespace InvestApp
             lblTotalValue.Text = $"Total Value: {totalValue:C}\nZakat Due: {totalZakat:C}";
         }
 
+        /// <summary>
+        /// Initializes the DataGridView settings
+        /// </summary>
         private void InitializeDataGridView()
         {
             dgvAssets.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -70,6 +89,9 @@ namespace InvestApp
             dgvAssets.SelectionChanged += DgvAssets_SelectionChanged;
         }
 
+        /// <summary>
+        /// Handles the remove asset button click
+        /// </summary>
         private void bt_removeasset_Click(object sender, EventArgs e)
         {
             if (_selectedAsset == null) return;
@@ -88,6 +110,9 @@ namespace InvestApp
             }
         }
 
+        /// <summary>
+        /// Handles the edit asset button click
+        /// </summary>
         private void bt_editasset_Click(object sender, EventArgs e)
         {
             if (_selectedAsset == null) return;
@@ -104,6 +129,9 @@ namespace InvestApp
             }
         }
 
+        /// <summary>
+        /// Handles the add asset button click
+        /// </summary>
         private void bt_addasset_Click(object sender, EventArgs e)
         {
             using (var addForm = new AddAsset())
@@ -118,9 +146,12 @@ namespace InvestApp
             }
         }
 
+        /// <summary>
+        /// Handles the connect to bank system button click
+        /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            if(!chb_isconnected.Checked)
+            if (!chb_isconnected.Checked)
             {
                 var Connect = new ConnectToBankSystem();
                 Connect.ShowDialog();

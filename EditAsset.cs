@@ -4,10 +4,20 @@ using System.Drawing;
 
 namespace InvestApp
 {
+    /// <summary>
+    /// Form for editing an existing asset
+    /// </summary>
     public partial class EditAsset : Form
     {
-        public Asset EditedAsset { get; private set; }
+        /// <summary>
+        /// Gets the edited asset
+        /// </summary>
+        public Asset EditedAsset { get; }
 
+        /// <summary>
+        /// Creates a new EditAsset form for the specified asset
+        /// </summary>
+        /// <param name="assetToEdit">The asset to edit</param>
         public EditAsset(Asset assetToEdit)
         {
             InitializeComponent();
@@ -15,6 +25,9 @@ namespace InvestApp
             SetupForm();
         }
 
+        /// <summary>
+        /// Sets up the form controls and layout
+        /// </summary>
         private void SetupForm()
         {
             this.Text = "Edit Asset";
@@ -108,13 +121,13 @@ namespace InvestApp
             };
 
             this.Controls.AddRange(new Control[] {
-            lblName, txtName,
-            lblPurchasePrice, lblPurchasePriceValue,
-            lblCurrentValue, numCurrentValue,
-            lblDate, lblDateValue,
-            lblType, lblTypeValue,
-            lblZakatStatus, lblZakatValue,
-            btnSave, btnCancel
+                lblName, txtName,
+                lblPurchasePrice, lblPurchasePriceValue,
+                lblCurrentValue, numCurrentValue,
+                lblDate, lblDateValue,
+                lblType, lblTypeValue,
+                lblZakatStatus, lblZakatValue,
+                btnSave, btnCancel
             });
 
             this.AcceptButton = btnSave;
@@ -144,6 +157,13 @@ namespace InvestApp
                 }
             };
         }
+
+        /// <summary>
+        /// Validates the form inputs
+        /// </summary>
+        /// <param name="name">The asset name to validate</param>
+        /// <param name="value">The asset value to validate</param>
+        /// <returns>True if inputs are valid, false otherwise</returns>
         private bool ValidateInputs(string name, decimal value)
         {
             if (string.IsNullOrWhiteSpace(name))
