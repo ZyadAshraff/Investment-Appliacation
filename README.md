@@ -11,7 +11,6 @@ InvestApp is a desktop application designed to help users manage their investmen
 - **Halal Compliance Check**: Automatically screens assets for Sharia compliance.
 - **Zakat Calculator**: Computes Zakat obligations (2.5% on eligible assets).
 - **File-Based Storage**: Saves user data and portfolios locally.
-- **Risk Assessment**: Classifies assets by risk level (Low/Medium/High).
 
 ## Technologies Used
 
